@@ -217,6 +217,8 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 			{{range $m := $svc.Methods}}
 				{{$m.GetName}}(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error)
 			{{end}}
+
+			GetGoogleAccessToken() (string, error)
 		}
 
 
@@ -237,13 +239,19 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 			{{range $m := $svc.Methods}}
 				{{$m.GetName}}Stub func(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error)
 			{{end}}
+
+			
 		}
 
 		{{range $m := $svc.Methods}}
-				func (c *{{$svc.GetName}}HttpClientStub) {{$m.GetName}}(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error) {
-					return c.{{$m.GetName}}Stub(ctx, in)
-				}
-			{{end}}
+			func (c *{{$svc.GetName}}HttpClientStub) {{$m.GetName}}(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error) {
+				return c.{{$m.GetName}}Stub(ctx, in)
+			}
+		{{end}}
+
+		func (c *CommandHandlingServiceHttpClientStub) GetGoogleAccessToken() (string, error) {
+			return "123456",nil
+		}
 
 		
 	{{end}}

@@ -218,6 +218,8 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 				{{$m.GetName}}(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error)
 			{{end}}
 
+			//Only here temporarily. Would need to be removed...
+			//getting the Token should be part of the AuthManager, and should not have "google" reference in the interface definition... maybe "GetAuthentication"... ?
 			GetGoogleAccessToken() (string, error)
 		}
 

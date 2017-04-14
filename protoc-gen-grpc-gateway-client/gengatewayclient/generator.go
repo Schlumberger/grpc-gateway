@@ -31,11 +31,19 @@ func New(reg *descriptor.Registry, useRequestContext bool) gen.Generator {
 	var imports []descriptor.GoPackage
 	for _, pkgpath := range []string{
 		"io",
+		"fmt",
+		"strings",
 		"net/http",
+		"erros",
+		"bytes",
+		"io/ioutil",
+		"golang.org/x/oauth2/google",
+		"github.com/golang/protobuf/jsonpb",
 		"github.com/golang/protobuf/proto",
 		"golang.org/x/net/context",
 		"google.golang.org/grpc",
 		"google.golang.org/grpc/codes",
+		"google.golang.org/grpc/metadata",
 	} {
 		pkg := descriptor.GoPackage{
 			Path: pkgpath,

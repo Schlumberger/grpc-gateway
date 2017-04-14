@@ -249,7 +249,7 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 			}
 		{{end}}
 
-		func (c *CommandHandlingServiceHttpClientStub) GetGoogleAccessToken() (string, error) {
+		func (c *{{$svc.GetName}}HttpClientStub) GetGoogleAccessToken() (string, error) {
 			return "123456",nil
 		}
 

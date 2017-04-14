@@ -143,6 +143,10 @@ import (
 	{{range $i := .Imports}}{{if not $i.Standard}}{{$i | printf "%s\n"}}{{end}}{{end}}
 )
 
+
+_ = fmt.Print
+_ = strings.Compare
+
 `))
 
 	clientFuncTemplate = template.Must(handlerTemplate.New("client-func").Parse(`

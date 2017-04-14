@@ -15,10 +15,10 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Schlumberger/grpc-gateway/protoc-gen-grpc-gateway-client/gengatewayclient"
 	"github.com/golang/glog"
 	"github.com/golang/protobuf/proto"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
-	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway-client/gengatewayclient"
 	"github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway/descriptor"
 )
 

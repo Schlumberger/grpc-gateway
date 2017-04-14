@@ -34,7 +34,7 @@ func New(reg *descriptor.Registry, useRequestContext bool) gen.Generator {
 		"fmt",
 		"strings",
 		"net/http",
-		"erros",
+		"errors",
 		"bytes",
 		"io/ioutil",
 		"golang.org/x/oauth2/google",

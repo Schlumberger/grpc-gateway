@@ -144,8 +144,8 @@ import (
 )
 
 
-_ = fmt.Print
-_ = strings.Compare
+var _ = fmt.Print
+var _ = strings.Compare
 
 `))
 

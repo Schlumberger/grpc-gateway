@@ -34,6 +34,7 @@ func New(reg *descriptor.Registry, useRequestContext bool) gen.Generator {
 		"fmt",
 		"strings",
 		"net/http",
+		"net/url",
 		"errors",
 		"bytes",
 		"io/ioutil",
@@ -112,5 +113,5 @@ func (g *generator) generate(file *descriptor.File) (string, error) {
 			imports = append(imports, pkg)
 		}
 	}
-	return applyTemplate(param{File: file, Imports: imports, UseRequestContext: g.useRequestContext})
+	return applyTemplate(param{File: file, Imports: imports, UseRequestContext: g.useRequestContext, reg: g.reg})
 }

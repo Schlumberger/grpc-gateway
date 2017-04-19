@@ -38,7 +38,6 @@ func New(reg *descriptor.Registry, useRequestContext bool) gen.Generator {
 		"errors",
 		"bytes",
 		"io/ioutil",
-		"golang.org/x/oauth2/google",
 		"github.com/golang/protobuf/jsonpb",
 		"github.com/golang/protobuf/proto",
 		"golang.org/x/net/context",

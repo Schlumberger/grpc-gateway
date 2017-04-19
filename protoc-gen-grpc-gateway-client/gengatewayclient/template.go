@@ -251,10 +251,6 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 					return c.{{$m.GetName}}Stub(ctx, in)
 				}
 			{{end}}
-
-			func (c *{{$svc.GetName}}HttpClientStub) GetGoogleAccessToken() (string, error) {
-				return "123456",nil
-			}
 		{{end}}
 `))
 
@@ -265,10 +261,6 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 			{{range $m := $svc.Methods}}
 				{{$m.GetName}}(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error)
 			{{end}}
-
-			//Only here temporarily. Would need to be removed...
-			//getting the Token should be part of the AuthManager, and should not have "google" reference in the interface definition... maybe "GetAuthentication"... ?
-			GetGoogleAccessToken() (string, error)
 		}
 
 

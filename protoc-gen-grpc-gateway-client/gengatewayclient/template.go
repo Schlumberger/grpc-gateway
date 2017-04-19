@@ -373,19 +373,6 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 
 			return nil
 		}
-
-		func (c* default{{$svc.GetName}}HttpClient) GetGoogleAccessToken() (string, error) {
-			ctx := context.Background()
-			tokenSource, err := google.DefaultTokenSource(ctx, "email")
-			if err != nil {
-				return "", err
-			}
-			token, err := tokenSource.Token()
-			if err != nil {
-				return "", err
-			}
-			return token.AccessToken, nil
-		}
 {{end}}
 `))
 )

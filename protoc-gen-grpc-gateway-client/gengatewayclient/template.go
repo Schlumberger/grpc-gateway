@@ -88,6 +88,10 @@ func getJsonName(param descriptor.Parameter) string {
 	return strings.Join(components, ".")
 }
 
+func isEnum(param descriptor.Parameter) bool {
+	return param.Target.GetType() == pbdescriptor.FieldDescriptorProto_TYPE_ENUM
+}
+
 func applyTemplate(p param) (string, error) {
 	w := bytes.NewBuffer(nil)
 	if err := headerTemplate.Execute(w, p); err != nil {
@@ -158,6 +162,7 @@ func applyTemplate(p param) (string, error) {
 var (
 	funcMap = template.FuncMap{
 		"ToJsonName": getJsonName,
+		"IsEnum": isEnum,
 	}
 
 	headerTemplate = template.Must(template.New("header").Parse(`
@@ -211,7 +216,11 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 	// Query params
 	v := url.Values{}
 	{{range $param := .QueryParams}}
-		v.Set("{{$param | ToJsonName | }}", {{$param.RHS "in"}})
+		{{if $param | IsEnum}}
+			v.Set("{{$param | ToJsonName | }}", {{$param.RHS "in"}}.String())
+		{{else}}
+			v.Set("{{$param | ToJsonName | }}", {{$param.RHS "in"}})
+		{{end}}
 	{{end}}
 		
 	localVarPath = localVarPath+"?" + v.Encode()

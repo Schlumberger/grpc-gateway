@@ -286,12 +286,12 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 
 		func New{{$svc.GetName}}HttpClient(url string)  {{$svc.GetName}}HttpClient {
 			//remove trailing / if present
-			updateUrl := url
+			updatedUrl := url
 			if strings.HasSuffix(url, "/") {
-				updateUrl = url[:len(url)-len("/")]
+				updatedUrl = url[:len(url)-len("/")]
 			}
 
-			return &defaultDeviceConfigServiceHttpClient{updateUrl}
+			return &default{{$svc.GetName}}HttpClient{updatedUrl}
 		}
 
 		type {{$svc.GetName}}HttpClientStub struct {

@@ -162,7 +162,7 @@ func applyTemplate(p param) (string, error) {
 var (
 	funcMap = template.FuncMap{
 		"ToJsonName": getJsonName,
-		"IsEnum": isEnum,
+		"IsEnum":     isEnum,
 	}
 
 	headerTemplate = template.Must(template.New("header").Parse(`
@@ -330,13 +330,14 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 			if(ctx != nil) {
 				// retrieve metadata from context
 				md, ok := metadata.FromOutgoingContext(ctx)
-				if !ok {
-					return nil, grpc.Errorf(codes.Internal, "Unable to get metadata from context")
-				}
-				authHeader := md["authorization"]
+				if ok {
+					authHeader := md["authorization"]
 
-				for _, v := range authHeader {
-					req.Header.Set("Authorization", v)
+					for _, v := range authHeader {
+						req.Header.Set("Authorization", v)
+					}
+				} else {
+					println("no Auth. info provided... doing un-authenticated call ")
 				}
 			}
 			

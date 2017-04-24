@@ -41,8 +41,6 @@ func New(reg *descriptor.Registry, useRequestContext bool) gen.Generator {
 		"github.com/golang/protobuf/jsonpb",
 		"github.com/golang/protobuf/proto",
 		"golang.org/x/net/context",
-		"google.golang.org/grpc",
-		"google.golang.org/grpc/codes",
 		"google.golang.org/grpc/metadata",
 	} {
 		pkg := descriptor.GoPackage{

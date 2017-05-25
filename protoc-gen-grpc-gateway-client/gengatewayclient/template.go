@@ -368,7 +368,11 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 				return err
 			}
 
-			if err = jsonpb.UnmarshalString(string(respBody), m); err != nil {
+			jsonMarshaler := new(jsonpb.Unmarshaler)
+			jsonMarshaler.AllowUnknownFields = true // This is required so that we can have backward compatibility with a server that is providing new fields... They will just be ignored
+			jsonMarshaler.Unmarshal(bytes.NewReader(respBody), m)
+
+			if err = jsonMarshaler.Unmarshal(bytes.NewReader(respBody), m); err != nil {
 				return err
 			}
 

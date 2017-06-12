@@ -211,7 +211,7 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 	// Query params
 	v := url.Values{}
 	{{range $param := .QueryParams}}
-		v.Set("{{$param | ToJsonName | }}", fmt.Sprintf("%v", {{$param.RHS "in"}}))
+		v.Set("{{$param | }}", fmt.Sprintf("%v", {{$param.RHS "in"}}))
 	{{end}}
 		
 	localVarPath = localVarPath+"?" + v.Encode()

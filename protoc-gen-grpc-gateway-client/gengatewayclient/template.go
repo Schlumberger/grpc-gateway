@@ -371,7 +371,21 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 		}
 		func (c* default{{$svc.GetName}}HttpClient) processResponse(r *http.Response, expectedStatus int) error {
 			if r.StatusCode != expectedStatus {
-				return errors.New("response status of " + r.Status)
+				//parse body, and create a GRPC error from it
+		
+				respBody, err := ioutil.ReadAll(r.Body)
+				if err != nil {
+					return grpc.Errorf(codes.Unknown, "Cannot read error from response")
+				}
+		
+				var errBody errorBody
+				err = json.Unmarshal(respBody, &errBody)
+				if err != nil {
+					return grpc.Errorf(codes.Unknown, string(respBody))
+				}
+		
+				return grpc.Errorf(codes.Code(errBody.Code), errBody.Error)
+		
 			}
 
 			return nil

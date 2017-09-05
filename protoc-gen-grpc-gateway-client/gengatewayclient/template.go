@@ -308,7 +308,7 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 
 `))
 
-	utilsFuncTemplate = template.Must(template.New("utils-func").Parse(`
+	utilsFuncTemplate = template.Must(template.New("utils-func").Parse(strings.Replace(`
 	//TODO: we could maybe put that in some shared utility package...
 	{{range $svc := .Services}}
 
@@ -385,6 +385,12 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 		}
 
 
+		type errorBody struct {
+			Error string <<SimpleQuote>>protobuf:"bytes,1,name=error" json:"error"<<SimpleQuote>>
+			Code  int32  <<SimpleQuote>>protobuf:"varint,2,name=code" json:"code"<<SimpleQuote>>
+		}
+		
+
 
 		func (c* default{{$svc.GetName}}HttpClient) processResponse(r *http.Response, expectedStatus int) error {
 			if r.StatusCode != expectedStatus {
@@ -408,5 +414,5 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 			return nil
 		}
 {{end}}
-`))
+`, "<<SimpleQuote>>", "`", -1)))
 )

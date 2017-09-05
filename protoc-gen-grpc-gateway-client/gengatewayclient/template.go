@@ -292,11 +292,11 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 		}
 
 		func New{{$svc.GetName}}HttpClientStub()  *{{$svc.GetName}}HttpClientStub {
-			stub : {{$svc.GetName}}HttpClientStub{}
+			stub := &{{$svc.GetName}}HttpClientStub{}
 	
 			{{range $m := $svc.Methods}}
 				stub.{{$m.GetName}}Stub = func(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error) {
-					return {{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}} {}
+					return &{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}{}, nil
 				}
 			{{end}}
 	
@@ -383,6 +383,9 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 
 			return nil
 		}
+
+
+
 		func (c* default{{$svc.GetName}}HttpClient) processResponse(r *http.Response, expectedStatus int) error {
 			if r.StatusCode != expectedStatus {
 				//parse body, and create a GRPC error from it

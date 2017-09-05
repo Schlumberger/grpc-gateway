@@ -385,10 +385,7 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 		}
 
 
-		type errorBody struct {
-			Error string <<SimpleQuote>>protobuf:"bytes,1,name=error" json:"error"<<SimpleQuote>>
-			Code  int32  <<SimpleQuote>>protobuf:"varint,2,name=code" json:"code"<<SimpleQuote>>
-		}
+
 		
 
 
@@ -399,6 +396,11 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 				respBody, err := ioutil.ReadAll(r.Body)
 				if err != nil {
 					return grpc.Errorf(codes.Unknown, "Cannot read error from response")
+				}
+
+				type errorBody struct {
+					Error string <<SimpleQuote>>protobuf:"bytes,1,name=error" json:"error"<<SimpleQuote>>
+					Code  int32  <<SimpleQuote>>protobuf:"varint,2,name=code" json:"code"<<SimpleQuote>>
 				}
 		
 				var errBody errorBody

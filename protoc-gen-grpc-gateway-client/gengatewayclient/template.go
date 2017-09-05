@@ -290,6 +290,20 @@ func (c* default{{.Method.Service.GetName}}HttpClient) {{.Method.GetName}}(ctx c
 				{{$m.GetName}}Stub func(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error)
 			{{end}}
 		}
+
+		func New{{$svc.GetName}}HttpClientStub()  *{{$svc.GetName}}HttpClientStub {
+			stub : {{$svc.GetName}}HttpClientStub{}
+	
+			{{range $m := $svc.Methods}}
+				stub.{{$m.GetName}}Stub = func(ctx context.Context, in *{{$m.RequestType.GoType $m.Service.File.GoPkg.Path}}) (*{{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}}, error) {
+					return {{$m.ResponseType.GoType $m.Service.File.GoPkg.Path}} {}
+				}
+			{{end}}
+	
+			return stub
+		}
+
+
 	{{end}}
 
 `))
